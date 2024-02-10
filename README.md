@@ -4,10 +4,17 @@
 
 <h1 align="center">🧹 Essential Helpers 🧹</h1>
 
+
+## Install
+
+```shell
+pip install essential-helpers
+```
+
 ## Usage
 
 ```python
-import essential-helpers 
+import ess_helpers 
 ```
 
 ### Argument Parsing
