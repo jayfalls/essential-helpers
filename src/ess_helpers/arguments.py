@@ -1,13 +1,13 @@
 # DEPENDENCIES
 ## Built-in
 from argparse import ArgumentParser
-from typing import Callable
+from typing import Callable, Union
 
 
 # PARSER TYPES
 def _string_argument(
     parser: ArgumentParser,
-    arg_names: (str, tuple),
+    arg_names: tuple[str],
     help_text: str,
     required: bool
 ) -> None:
@@ -15,7 +15,7 @@ def _string_argument(
 
 def _int_argument(
     parser: ArgumentParser,
-    arg_names: (str, tuple),
+    arg_names: tuple[str],
     help_text: str,
     required: bool
 ) -> None:
@@ -23,7 +23,7 @@ def _int_argument(
 
 def _bool_argument(
     parser: ArgumentParser,
-    arg_names: (str, tuple),
+    arg_names: tuple[str],
     help_text: str,
     required: bool
 ) -> None:
@@ -33,8 +33,8 @@ def _bool_argument(
 # INTERFACE
 def _add_argument_type(
     parser: ArgumentParser,
-    type_argument: Callable[[ArgumentParser, (str, tuple), str], None],
-    arg_names: (str, tuple),
+    type_argument: Callable[[ArgumentParser, tuple[str], str, bool], None],
+    arg_names: tuple[str],
     help_text: str,
     required: bool
 ) -> None:
@@ -50,7 +50,7 @@ class Arguments:
     # Assignment
     def add_string_argument(
         self,
-        arg_names: (str, tuple),
+        arg_names: tuple[str],
         help_text: str,
         required: bool = False
     ) -> None:
@@ -58,7 +58,7 @@ class Arguments:
 
     def add_int_argument(
         self,
-        arg_names: (str, tuple),
+        arg_names: tuple[str],
         help_text: str,
         required: bool = False
     ) -> None:
@@ -66,7 +66,7 @@ class Arguments:
 
     def add_bool_argument(
         self,
-        arg_names: (str, tuple),
+        arg_names: tuple[str],
         help_text: str,
         required: bool = False
     ) -> None:
@@ -77,7 +77,7 @@ class Arguments:
         if not self.arguments:
             self.arguments: dict = vars(self.parser.parse_args())
 
-    def get_arg(self, arg_name: str) -> (str, int, bool, None):
+    def get_arg(self, arg_name: str) -> Union[str, int, bool, None]:
         self._assign_arguments()
         return self.arguments.get(arg_name)
 

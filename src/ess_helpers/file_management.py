@@ -14,7 +14,7 @@ from ess_helpers.exceptions.file_management import (
 
 
 # VALIDATION
-def file_exists(file_path: str, exit_from_error: bool = False, error_message: str = "") -> None:
+def file_exists(file_path: str, exit_from_error: bool = False, error_message: str = "") -> bool:
     exists: bool = os.path.exists(file_path)
     if not error_message:
         error_message = f"Error: {file_path} does not exist"

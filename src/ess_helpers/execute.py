@@ -1,15 +1,17 @@
 # DEPENDENCIES
 ## Built-in
 import subprocess
+from typing import Generator
 ## Local
 from ess_helpers.exceptions.execute import CommandExecutionError
 
-def execute_cmd(cmd: str, ignore_error: bool) -> None:
+def execute_cmd(cmd: str, ignore_error: bool) -> Generator[str, None, None]:
     try:
         popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True, shell=True, text=True)
-        for stdout_line in iter(popen.stdout.readline, ""):
-            yield stdout_line
-        popen.stdout.close()
+        if popen.stdout is not None:
+            for stdout_line in iter(popen.stdout.readline, ""):
+                yield stdout_line
+            popen.stdout.close()
         return_code = popen.wait()
 
         if return_code and not ignore_error:
