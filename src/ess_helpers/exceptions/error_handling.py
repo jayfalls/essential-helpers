@@ -5,5 +5,5 @@ import sys
 
 # FUNCTIONS
 def exit_on_error(error: str) -> None:
-    print(error)
+    print(f"ERROR: {error}")
     sys.exit(1)
